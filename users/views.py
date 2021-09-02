@@ -11,7 +11,6 @@ from django.shortcuts import redirect
 from django.contrib.auth.models import User
 
 # ============================ Auth Views ===============================
-
 class LoginView(View):
     def post(self , request):
         username = request.POST.get('username')
@@ -37,3 +36,4 @@ class SignUpView(View):
 
             messages.warning(request, 'username already exists!')
         return redirect('/')
+# ======================================================================================
