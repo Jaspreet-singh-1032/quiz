@@ -41,9 +41,10 @@ INSTALLED_APPS = [
     # third party apps
     'django_extensions',
     'rest_framework',
+
     # my apps
     'app',
-    'users'
+    'users',
     'api'
 ]
 
@@ -135,3 +136,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}

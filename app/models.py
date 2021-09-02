@@ -14,7 +14,7 @@ class Question(TimeStampedModel):
     text = models.CharField(max_length=500)
     
     # relationship
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE , related_name='questions')
 
 class Option(TimeStampedModel):
     # required
@@ -24,4 +24,4 @@ class Option(TimeStampedModel):
     is_correct = models.BooleanField(default=False)
     
     # relationship
-    question = models.ForeignKey(Question , on_delete=models.CASCADE)
+    question = models.ForeignKey(Question , on_delete=models.CASCADE , related_name='options')

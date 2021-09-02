@@ -1,0 +1,2 @@
+1. first user will create a quiz by providing quiz name
+2. it will show a form with add button where user can keep adding questions

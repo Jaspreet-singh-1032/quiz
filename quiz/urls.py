@@ -17,16 +17,31 @@ from django.contrib import admin
 from django.urls import path , include
 from django.contrib.auth.views import LogoutView
 from django.views.generic import TemplateView
+from rest_framework import routers
 
-# views
+
+# app
 from users.views import (
     LoginView,
     SignUpView
 )
 
+# api
+from api.views import (
+    QuizViewSet
+)
+
+router = routers.DefaultRouter()
+
+router.register(r'quiz', QuizViewSet , basename='quiz')
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('api-auth/', include('rest_framework.urls')),
     path('' , TemplateView.as_view(template_name='users/home.html')),
+
+    # api's
+    path('api/' , include(router.urls)),
 
     # auth
     path('logout/', LogoutView.as_view() , name='logout'),
