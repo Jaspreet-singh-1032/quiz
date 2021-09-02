@@ -40,10 +40,11 @@ INSTALLED_APPS = [
 
     # third party apps
     'django_extensions',
-    
+    'rest_framework',
     # my apps
     'app',
     'users'
+    'api'
 ]
 
 MIDDLEWARE = [
