@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path , include
 from django.contrib.auth.views import LogoutView
 from django.views.generic import TemplateView
-from rest_framework import routers
+from rest_framework_nested import routers
 
 
 # app
@@ -28,12 +28,17 @@ from users.views import (
 
 # api
 from api.views import (
-    QuizViewSet
+    QuizViewSet,
+    QuestionViewSet
 )
 
 router = routers.DefaultRouter()
 
 router.register(r'quiz', QuizViewSet , basename='quiz')
+
+quiz_router = routers.NestedSimpleRouter(router, r'quiz' ,lookup='quiz')
+quiz_router.register(r'question', QuestionViewSet , basename='question')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,6 +47,7 @@ urlpatterns = [
 
     # api's
     path('api/' , include(router.urls)),
+    path('api/',include(quiz_router.urls)),
 
     # auth
     path('logout/', LogoutView.as_view() , name='logout'),
