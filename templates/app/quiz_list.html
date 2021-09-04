@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}
+My Quiz
+{% endblock title %}
+{% load static %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+
+<button hidden class="btn btn-primary" id="questionModal" data-bs-toggle="modal" data-bs-target="#AddQuestionsModal">
+
+</button>
+
+<form action="" method="POST" onsubmit="event.preventDefault(); createQuiz(); ">
+    {% csrf_token %}
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+            <input type="text" autocomplete required name="quizName" id="quizName" class="form-control"
+                aria-describedby="passwordHelpInline" placeholder="Enter quiz name">
+        </div>
+        <div class="col-auto">
+            <span id="passwordHelpInline" class="form-text">
+                <input type="submit" class="btn btn-secondary rounded-pill" value="Create" id="createBtn">
+            </span>
+        </div>
+    </div>
+</form>
+<ul class="list-group my-2">
+    <li class="list-group-item active bg-secondary" aria-current="true">Recent quiz</li>
+    {% for quiz in quiz_list %}
+
+    <li class="list-group-item d-flex justify-content-between align-items-center">{{quiz.name}}
+        <span><a class="btn btn-success btn-sm rounded-pill" href="">Copy link</a>
+            <a class="btn btn-primary btn-sm rounded-pill" href="">View Results</a></span>
+    </li>
+    {% endfor %}
+
+</ul>
+
+<!-- add questins modal -->
+<div class="modal fade" id="AddQuestionsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add questions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <label for="inputQuestion" class="form-label">Question</label>
+                    <input type="text" id="question" placeholder="enter question here" required class="form-control"
+                        aria-describedby="passwordHelpBlock">
+                    <label for="inputQuestion" class="form-label">Options</label>
+
+                    <div class="row my-1 justify-content-between align-items-center" id="optionsList">
+                        <div class="optionsContainer">
+                            <div class="col-sm-6 col-md-8 my-1">
+                                <input type="text" id="option1" name="option" placeholder="enter option here" required
+                                    class="form-control" aria-describedby="passwordHelpBlock">
+                            </div>
+                            <div class="col-6 col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="radio" id="optionRadio1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        is correct
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+                <button class="btn btn-secondary btn-sm rounded-pill my-2" id="addOption">add option</button>
+                <button class="btn btn-danger btn-sm rounded-pill my-2" id="deleteOption">delete option</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="{%static 'js\quiz.js'%}"></script>
+
+
+{% endblock content %}

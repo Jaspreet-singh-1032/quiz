@@ -17,13 +17,21 @@ from django.contrib import admin
 from django.urls import path , include
 from django.contrib.auth.views import LogoutView
 from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
+
+# drf imports
 from rest_framework_nested import routers
 
-
-# app
+# users
 from users.views import (
     LoginView,
     SignUpView
+)
+
+# app
+from app.views import (
+    ListQuizView
 )
 
 # api
@@ -49,8 +57,11 @@ urlpatterns = [
     path('api/' , include(router.urls)),
     path('api/',include(quiz_router.urls)),
 
+    # app
+    path('app/quiz/' , ListQuizView.as_view() , name='quiz_list'),
+
     # auth
     path('logout/', LogoutView.as_view() , name='logout'),
     path('login/' , LoginView.as_view() , name='login'),
     path('signup/' , SignUpView.as_view() , name='signup')
-]
+] 
