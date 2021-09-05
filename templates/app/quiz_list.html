@@ -12,7 +12,7 @@ My Quiz
 
 </button>
 
-<form action="" method="POST" onsubmit="event.preventDefault(); createQuiz(); ">
+<form action="" method="POST" onsubmit="event.preventDefault();" id="quizForm">
     {% csrf_token %}
     <div class="row g-3 align-items-center">
         <div class="col-auto">
@@ -47,9 +47,10 @@ My Quiz
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="">
+                <form onsubmit="event.preventDefault();" id="questionForm">
+                {% csrf_token %}
                     <label for="inputQuestion" class="form-label">Question</label>
-                    <input type="text" id="question" placeholder="enter question here" required class="form-control"
+                    <input type="text" id="question" name="question" placeholder="enter question here" required class="form-control"
                         aria-describedby="passwordHelpBlock">
                     <label for="inputQuestion" class="form-label">Options</label>
 
@@ -61,23 +62,22 @@ My Quiz
                             </div>
                             <div class="col-6 col-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="radio" id="optionRadio1">
+                                    <input class="form-check-input" type="radio" name="radio" id="optionRadio1" checked>
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         is correct
                                     </label>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                </form>
-                <button class="btn btn-secondary btn-sm rounded-pill my-2" id="addOption">add option</button>
-                <button class="btn btn-danger btn-sm rounded-pill my-2" id="deleteOption">delete option</button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+                    </div>                    
+                    <button class="btn btn-secondary btn-sm rounded-pill my-2" id="addOption">add option</button>
+                    <button class="btn btn-danger btn-sm rounded-pill my-2" id="deleteOption">delete option</button>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

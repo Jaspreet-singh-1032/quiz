@@ -21,8 +21,6 @@ from .serializers import (
 )
 
 class QuizViewSet(mixins.CreateModelMixin,
-                 mixins.ListModelMixin,
-                 mixins.DestroyModelMixin,
                  viewsets.GenericViewSet):
     serializer_class = QuizSerializer
     
@@ -31,7 +29,6 @@ class QuizViewSet(mixins.CreateModelMixin,
         returns quiz related to current user
         '''
         return Quiz.objects.filter(user=self.request.user)
-        
     
     def perform_create(self, serializer):
         serializer.save(user = self.request.user)

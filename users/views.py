@@ -6,6 +6,7 @@ from django.contrib.auth import (
 )
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 
 # models import
 from django.contrib.auth.models import User
@@ -18,6 +19,7 @@ class LoginView(View):
         user = authenticate(username = username , password = password)
         if user:
             login(request, user)
+            return redirect(reverse_lazy('quiz_list'))
         else:
             messages.warning(request, 'invalid credentials')
         return redirect('/')
