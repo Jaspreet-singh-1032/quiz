@@ -30,7 +30,7 @@ My Quiz
     <li class="list-group-item active bg-secondary" aria-current="true">Recent quiz</li>
     {% for quiz in quiz_list %}
 
-    <li class="list-group-item d-flex justify-content-between align-items-center">{{quiz.name}}
+    <li class="list-group-item d-flex justify-content-between align-items-center"><a href="{%url 'quiz_page' quiz.id%}">{{quiz.name}}</a>
         <span><a class="btn btn-success btn-sm rounded-pill" href="">Copy link</a>
             <a class="btn btn-primary btn-sm rounded-pill" href="">View Results</a></span>
     </li>

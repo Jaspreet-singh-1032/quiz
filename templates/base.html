@@ -58,9 +58,13 @@
 
 
     <div class="container my-2">
+        {% block content %}
+        
+        {% endblock content %}
+        <br>
         {% if user.is_authenticated %}
         {% else %}
-        Login or signup to start creating quiz
+        Login or signup to create your own quiz
         <!-- Button trigger login modal -->
         <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#loginModal">
             Login
@@ -70,7 +74,6 @@
             SignUp
         </button>
         {% endif %}
-        {% block content %}{% endblock content %}
     </div>
 
 

@@ -31,7 +31,8 @@ from users.views import (
 
 # app
 from app.views import (
-    ListQuizView
+    ListQuizView,
+    QuizPageView
 )
 
 # api
@@ -59,6 +60,7 @@ urlpatterns = [
 
     # app
     path('app/quiz/' , ListQuizView.as_view() , name='quiz_list'),
+    path('app/quiz/<str:pk>/' , QuizPageView.as_view() , name='quiz_page'),
 
     # auth
     path('logout/', LogoutView.as_view() , name='logout'),
