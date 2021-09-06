@@ -37,3 +37,11 @@ class Option(TimeStampedModel):
     def __str__(self):
         return self.text
     
+class Answer(TimeStampedModel):
+
+    # required
+    name = models.CharField(max_length=50) # name of user who is attempting quiz
+
+    # relationship
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    options = models.ManyToManyField(Option)

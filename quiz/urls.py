@@ -32,13 +32,14 @@ from users.views import (
 # app
 from app.views import (
     ListQuizView,
-    QuizPageView
+    QuizPageView,
+    ResultView
 )
 
 # api
 from api.views import (
     QuizViewSet,
-    QuestionViewSet
+    QuestionViewSet,
 )
 
 router = routers.DefaultRouter()
@@ -61,6 +62,7 @@ urlpatterns = [
     # app
     path('app/quiz/' , ListQuizView.as_view() , name='quiz_list'),
     path('app/quiz/<str:pk>/' , QuizPageView.as_view() , name='quiz_page'),
+    path('app/quiz/<str:pk>/results/',ResultView.as_view() , name='quiz_result'),
 
     # auth
     path('logout/', LogoutView.as_view() , name='logout'),
