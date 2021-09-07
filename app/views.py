@@ -3,11 +3,14 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.views import View
-from django.shortcuts import HttpResponse
+from django.shortcuts import HttpResponse , redirect , render
+from django.urls import reverse_lazy
+from django.conf import settings
 
 # models imports
 from .models import (
-    Quiz
+    Quiz,
+    Answer
 )
 
 # forms import
@@ -37,7 +40,31 @@ class QuizPageView(generic.DetailView):
     
 class ResultView(View):
 
+    def get_queryset(self):
+        self.quiz = get_object_or_404(Quiz.objects.prefetch_related('questions'), pk=self.kwargs.get('pk'))        
+        return Answer.objects.prefetch_related('options').filter(quiz=self.quiz).order_by('-created')
+    
+    def get_context_data(self):
+        context = {}
+        context['answers_list'] = self.get_queryset()
+        context['quiz_name'] = self.quiz.name
+        context['max_score'] = self.quiz.questions.count()
+        return context
+    
+    def get(self , request , pk):
+        '''
+        return list of results for a quiz
+        '''
+        if not request.user.is_authenticated:
+            return redirect(settings.LOGIN_URL)
+        context = self.get_context_data()
+        
+        return render(request, 'app/results_list.html' , context)
+
     def post(self , request , pk):
+        '''
+        save the result of a quiz
+        '''
         selected_options = []
         i = 1
         while True:
@@ -53,11 +80,23 @@ class ResultView(View):
             "options":selected_options
         }
         form = AnswerForm(data=data)
-        print(form.is_valid())
-        if not form.is_valid():
-            '''
-            return result page  
-            '''
-            print(form.errors)
+        if form.is_valid():
+            obj = form.save()
+            return redirect(reverse_lazy('result_page',kwargs={'pk':obj.pk}))
+        return HttpResponse('Please try later')
 
-        return HttpResponse('done')
+
+class ResultPageView(generic.DetailView):
+    template_name = 'app/result.html'
+    context_object_name = 'answer'
+
+    def get_object(self ):
+        answer = get_object_or_404(Answer.objects.prefetch_related('options'), pk=self.kwargs.get('pk'))
+        return answer
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["total_answers"] = context['answer'].options.all().count()
+        context["correct_answers"] = context['answer'].options.filter(is_correct=True).count()
+        return context
+    

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Result
+{% endblock title %}
+
+{% block content %}
+<div class="card text-center">
+    <div class="card-header">
+        QuizBuddy
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Thanks for attempting the quiz :-)</h5>
+        <h1 class="card-text">Your Score : {{correct_answers}} / {{total_answers}}</h1>
+    </div>
+</div>
+</div>
+<br>
+<center>
+    {% if user.is_authenticated %}
+    {% else %}
+    Login or signup to create your own quiz
+    <!-- Button trigger login modal -->
+    <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+        Login
+    </button> or
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#signupModal">
+        SignUp
+    </button>
+    {% endif %}
+</center>
+{% endblock content %}

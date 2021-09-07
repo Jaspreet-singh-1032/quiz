@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block content %}
-<form action="{%url 'quiz_result' quiz.pk%}" method="post">
+<form action="{%url 'quiz_results' quiz.pk%}" method="post">
 <div class="alert alert-success" role="alert">
   <h4 class="alert-heading">How much you know about {{quiz.user.username}} ?</h4>
   <p>This is a friendly quiz created by {{quiz.user.username}} to see how much you know about them.</p>
