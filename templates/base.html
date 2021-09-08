@@ -25,10 +25,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{%url 'quiz_list'%}">My quiz</a>
                     </li>
-                    {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,22 +45,37 @@
 
         </div>
     </nav>
-    {% if messages %}
-
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-        <strong>Holy guacamole!</strong> {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    {% endfor %}
-
-{% endif %}
-
-
+    
+    
     <div class="container my-2">
+        {% if messages %}
+    
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    
+        {% endif %}
         {% block content %}
-        
+
         {% endblock content %}
+        <center>
+            {% if user.is_authenticated %}
+            {% else %}
+            Login or signup to create your own quiz
+            <br>
+            <!-- Button trigger login modal -->
+            <button type="button" class="btn btn-primary mx-2 my-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                Login
+            </button> or
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#signupModal">
+                SignUp
+            </button>
+            {% endif %}
+        </center>
     </div>
 
 
@@ -78,12 +93,13 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Username</label>
-                            <input type="text" autofocus name="username" required class="form-control" id="loginUsername"
-                                aria-describedby="emailHelp">
+                            <input type="text" autofocus name="username" required class="form-control"
+                                id="loginUsername" aria-describedby="emailHelp">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" autocomplete name="password" required class="form-control" id="loginPassword">
+                            <input type="password" autocomplete name="password" required class="form-control"
+                                id="loginPassword">
                         </div>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </form>
@@ -113,7 +129,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" name="password" autocomplete required class="form-control" id="signupPassword">
+                            <input type="password" name="password" autocomplete required class="form-control"
+                                id="signupPassword">
                         </div>
                         <button type="submit" class="btn btn-primary">SignUp</button>
                     </form>

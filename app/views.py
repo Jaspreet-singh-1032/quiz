@@ -6,6 +6,7 @@ from django.views import View
 from django.shortcuts import HttpResponse , redirect , render
 from django.urls import reverse_lazy
 from django.conf import settings
+from django.contrib import messages
 
 # models imports
 from .models import (
@@ -18,12 +19,15 @@ from .forms import (
     AnswerForm
 )
 
-class ListQuizView(LoginRequiredMixin,generic.ListView):
+class ListQuizView(LoginRequiredMixin,generic.ListView ):
     template_name = 'app/list_quiz.html'
     context_object_name = 'quiz_list'
     
     def get_queryset(self):
-        return Quiz.objects.values('id','name').filter(user = self.request.user).order_by('-created')
+        queryset = Quiz.objects.values('id','name').filter(user = self.request.user).order_by('-created')
+        if queryset.count() == 0:
+            messages.info(self.request, 'You have not created any quiz yet !')
+        return queryset
 
 class QuizPageView(generic.DetailView):
     template_name = 'app/quiz_page.html'
@@ -41,7 +45,7 @@ class QuizPageView(generic.DetailView):
 class ResultView(View):
 
     def get_queryset(self):
-        self.quiz = get_object_or_404(Quiz.objects.prefetch_related('questions'), pk=self.kwargs.get('pk'))        
+        self.quiz = get_object_or_404(Quiz.objects.prefetch_related('questions'), pk=self.kwargs.get('pk') , user=self.request.user)        
         return Answer.objects.prefetch_related('options').filter(quiz=self.quiz).order_by('-created')
     
     def get_context_data(self):
@@ -87,6 +91,9 @@ class ResultView(View):
 
 
 class ResultPageView(generic.DetailView):
+    '''
+    show result page
+    '''
     template_name = 'app/result.html'
     context_object_name = 'answer'
 
@@ -96,7 +103,7 @@ class ResultPageView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        print(context['answer'].quiz.user)
         context["total_answers"] = context['answer'].options.all().count()
         context["correct_answers"] = context['answer'].options.filter(is_correct=True).count()
         return context
-    

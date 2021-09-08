@@ -3,6 +3,7 @@
 //     console.log(quizName);
 //     var btn = document.getElementById('questionModal').click();
 // }
+const BASE_URL = window.location.origin;
 
 document.getElementById("quizForm").addEventListener("submit", (e) => {
   var formData = new FormData(e.target);
@@ -11,7 +12,7 @@ document.getElementById("quizForm").addEventListener("submit", (e) => {
 
   document.getElementById("questionModal").click();
   const xhr = new XMLHttpRequest();
-  xhr.open("post", "http://127.0.0.1:8000/api/quiz/", true);
+  xhr.open("post", `${BASE_URL}/api/quiz/`, true);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.setRequestHeader("X-CSRFToken", csrf);
   xhr.onload = () => {
@@ -70,7 +71,7 @@ document.getElementById("questionForm").addEventListener("submit", (e) => {
   let csrf = document.getElementsByName("csrfmiddlewaretoken")[1].value;
 
   const xhr = new XMLHttpRequest();
-  xhr.open("post", `http://127.0.0.1:8000/api/quiz/${quiz_id}/question/`, true);
+  xhr.open("post", `${BASE_URL}/api/quiz/${quiz_id}/question/`, true);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.setRequestHeader("X-CSRFToken", csrf);
   xhr.onload = () => {
@@ -88,3 +89,12 @@ document.getElementById("questionForm").addEventListener("submit", (e) => {
   };
   xhr.send(JSON.stringify(body));
 });
+
+function copyQuizLink(id){
+  navigator.clipboard.writeText(window.location.href + id.id + '/');
+  alert('Link copied !')
+}
+
+document.getElementById('AddQuestionsModal').addEventListener('hidden.bs.modal',()=>{
+  window.location.reload()
+})

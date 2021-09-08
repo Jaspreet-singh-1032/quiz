@@ -26,12 +26,15 @@ My Quiz
         </div>
     </div>
 </form>
+<a class="btn btn-primary btn-sm mt-2" href="">Refresh</a>
 <ul class="list-group my-2">
-    <li class="list-group-item active bg-secondary" aria-current="true">Recent quiz</li>
+    <li class="list-group-item active bg-secondary" aria-current="true">Recent quiz 
+        <!-- <a class="btn btn-light btn-sm  float-end" href="">Refresh</a> -->
+    </li>    
     {% for quiz in quiz_list %}
 
     <li class="list-group-item d-flex justify-content-between align-items-center"><a href="{%url 'quiz_page' quiz.id%}">{{quiz.name}}</a>
-        <span><a class="btn btn-success btn-sm rounded-pill" href="">Copy link</a>
+        <span><a class="btn btn-success btn-sm rounded-pill" value="{{quiz.id}}" onclick="copyQuizLink({{quiz}});">Copy link</a>
             <a class="btn btn-primary btn-sm rounded-pill" href="{%url 'quiz_results' quiz.id%}">View Results</a></span>
     </li>
     {% endfor %}
@@ -76,6 +79,7 @@ My Quiz
                 <div class="modal-footer">
                     <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
                     <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Finish</button>
                 </div>
             </form>
         </div>

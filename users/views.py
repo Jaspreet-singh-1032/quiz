@@ -34,8 +34,6 @@ class SignUpView(View):
             user.save()
             login(request, user)
         except Exception as e:
-            print(e)
-
             messages.warning(request, 'username already exists!')
-        return redirect('/')
+        return redirect(reverse_lazy('quiz_list'))
 # ======================================================================================
