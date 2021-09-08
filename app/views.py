@@ -20,6 +20,9 @@ from .forms import (
 )
 
 class ListQuizView(LoginRequiredMixin,generic.ListView ):
+    '''
+    rerturn list of quiz created by user
+    '''
     template_name = 'app/list_quiz.html'
     context_object_name = 'quiz_list'
     
@@ -30,6 +33,9 @@ class ListQuizView(LoginRequiredMixin,generic.ListView ):
         return queryset
 
 class QuizPageView(generic.DetailView):
+    '''
+    return quiz page to attempt the quiz
+    '''
     template_name = 'app/quiz_page.html'
     context_object_name = 'quiz'
 
@@ -87,7 +93,8 @@ class ResultView(View):
         if form.is_valid():
             obj = form.save()
             return redirect(reverse_lazy('result_page',kwargs={'pk':obj.pk}))
-        return HttpResponse('Please try later')
+        messages.warning(request, 'Please try later')
+        return redirect('/')
 
 
 class ResultPageView(generic.DetailView):
@@ -107,3 +114,11 @@ class ResultPageView(generic.DetailView):
         context["total_answers"] = context['answer'].options.all().count()
         context["correct_answers"] = context['answer'].options.filter(is_correct=True).count()
         return context
+
+class DeleteQuizView(LoginRequiredMixin,generic.DeleteView):
+    """ delete quiz """
+    success_url = reverse_lazy('quiz_list')
+
+    def get_queryset(self):
+        return Quiz.objects.filter(user = self.request.user)
+    

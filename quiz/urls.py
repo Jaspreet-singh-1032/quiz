@@ -34,7 +34,8 @@ from app.views import (
     ListQuizView,
     QuizPageView,
     ResultView,
-    ResultPageView
+    ResultPageView,
+    DeleteQuizView
 )
 
 # api
@@ -63,6 +64,7 @@ urlpatterns = [
     # app
     path('app/quiz/' , ListQuizView.as_view() , name='quiz_list'),
     path('app/quiz/<str:pk>/' , QuizPageView.as_view() , name='quiz_page'),
+    path('app/quiz/<str:pk>/delete/' , DeleteQuizView.as_view() , name='quiz_delete'),
     path('app/quiz/<str:pk>/results/',ResultView.as_view() , name='quiz_results'),
     path('app/quiz/result/<str:pk>/',ResultPageView.as_view() , name='result_page'),
 
