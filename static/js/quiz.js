@@ -92,7 +92,10 @@ document.getElementById("questionForm").addEventListener("submit", (e) => {
 
 function copyQuizLink(id){
   navigator.clipboard.writeText(window.location.href + id.id + '/');
-  alert('Link copied !')
+  document.getElementById(`button${id.id}`).innerText = 'Copied !'
+  setInterval(()=>{
+    document.getElementById(`button${id.id}`).innerText = 'Copy link'
+  },3000);
 }
 
 document.getElementById('AddQuestionsModal').addEventListener('hidden.bs.modal',()=>{
