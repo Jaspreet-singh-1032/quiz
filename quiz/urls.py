@@ -54,6 +54,7 @@ quiz_router.register(r'question', QuestionViewSet , basename='question')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     # path('api-auth/', include('rest_framework.urls')),
     path('' , TemplateView.as_view(template_name='users/home.html')),
 

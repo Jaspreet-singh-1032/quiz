@@ -91,7 +91,7 @@ document.getElementById("questionForm").addEventListener("submit", (e) => {
 });
 
 function copyQuizLink(id){
-  navigator.clipboard.writeText(window.location.href + id.id + '/');
+  navigator.clipboard.writeText(window.location.href.replace('#','') + id.id + '/');
   document.getElementById(`button${id.id}`).innerText = 'Copied !'
   setInterval(()=>{
     document.getElementById(`button${id.id}`).innerText = 'Copy link'

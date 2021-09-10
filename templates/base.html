@@ -9,11 +9,12 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-
+      
     {% block link %}
     
     {% endblock link %}
     <title>{% block title %}{% endblock title %} | QuizBuddy</title>
+
 </head>
 
 <body>
@@ -64,6 +65,7 @@
         {% block content %}
 
         {% endblock content %}
+
         <center>
             {% if user.is_authenticated %}
             {% else %}
@@ -77,6 +79,14 @@
             <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#signupModal">
                 SignUp
             </button>
+
+            <br>
+                <a class="btn btn-outline-dark" href="{%url 'google_login'%}" role="button" style="text-transform:none">
+                <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                Login with Google
+                </a>
+             
+
             {% endif %}
         </center>
     </div>
