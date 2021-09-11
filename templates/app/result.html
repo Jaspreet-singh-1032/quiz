@@ -9,7 +9,7 @@ Result
     <div class="card-header">
         <!-- QuizBuddy -->
         <!-- <br> -->
-        {{answer.quiz.user.username}}'s Quiz
+        Quiz by <b>{{answer.quiz.user.username}}</b>
     </div>
     <div class="card-body">
         <h5 class="card-title">Thanks for attempting the quiz :-)</h5>
@@ -18,4 +18,5 @@ Result
 </div>
 </div>
 <br>
+{% include "auth.html" %}
 {% endblock content %}
