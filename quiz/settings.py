@@ -181,3 +181,10 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'quiz_page_cache',
+    }
+}

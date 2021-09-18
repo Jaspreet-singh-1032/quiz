@@ -20,12 +20,12 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 
-# django imports
-from django.views.decorators.cache import cache_page
 
 # drf imports
 from rest_framework_nested import routers
 
+# custom dacorators
+from app.dacorators import cache_page_for_guests
 
 # users
 from users.views import (
@@ -68,10 +68,10 @@ urlpatterns = [
 
     # app
     path('app/quiz/' , ListQuizView.as_view() , name='quiz_list'),
-    path('app/quiz/<str:pk>/' , (cache_page(86400))(QuizPageView.as_view()) , name='quiz_page'),
+    path('app/quiz/<str:pk>/' , (cache_page_for_guests(20))(QuizPageView.as_view()) , name='quiz_page'),
     path('app/quiz/<str:pk>/delete/' , DeleteQuizView.as_view() , name='quiz_delete'),
-    path('app/quiz/<str:pk>/results/',ResultView.as_view() , name='quiz_results'),
-    path('app/quiz/result/<str:pk>/',ResultPageView.as_view() , name='result_page'),
+    path('app/quiz/<str:pk>/results/',ResultView.as_view() , name='quiz_results'), # for authenticated user to view all results
+    path('app/quiz/result/<str:pk>/',ResultPageView.as_view() , name='result_page'), # for visitor who is attempting quiz
 
     # auth
     path('logout/', LogoutView.as_view() , name='logout'),
