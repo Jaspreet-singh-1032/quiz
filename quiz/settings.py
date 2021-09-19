@@ -193,12 +193,12 @@ SOCIALACCOUNT_PROVIDERS = {
 #     }
 # }
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'cache_quiz_page',
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+#         'LOCATION': 'cache_quiz_page',
+#     }
+# }
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
