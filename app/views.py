@@ -27,7 +27,7 @@ class ListQuizView(LoginRequiredMixin,generic.ListView ):
     context_object_name = 'quiz_list'
     
     def get_queryset(self):
-        queryset = Quiz.objects.values('id','name').filter(user = self.request.user).order_by('-created')
+        queryset = Quiz.objects.values('id','name','uuid').filter(user = self.request.user).order_by('-created')
         if queryset.count() == 0:
             messages.info(self.request, 'You have not created any quiz yet !')
         return queryset
@@ -38,10 +38,12 @@ class QuizPageView(generic.DetailView):
     '''
     template_name = 'app/quiz_page.html'
     context_object_name = 'quiz'
+    queryset = Quiz.objects.all()
+    slug_field = 'uuid'
 
-    def get_object(self ):
-        quiz = get_object_or_404(Quiz.objects.select_related('user'), pk=self.kwargs.get('pk'))
-        return quiz
+    # def get_object(self ):
+    #     quiz = get_object_or_404(Quiz.objects.select_related('user'), uuid=self.kwargs.get('pk'))
+    #     return quiz
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

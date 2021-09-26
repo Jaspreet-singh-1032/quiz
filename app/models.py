@@ -1,6 +1,8 @@
+import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
 from django_extensions.db.models import TimeStampedModel
+from django.urls import reverse
 
 class Quiz(TimeStampedModel):
     
@@ -8,9 +10,10 @@ class Quiz(TimeStampedModel):
     name = models.CharField(max_length=50)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
+    uuid = models.UUIDField(default=uuid.uuid4 , editable=False, unique=True)
+
     def __str__(self):
         return self.name
-    
 
 class Question(TimeStampedModel):
     
@@ -45,3 +48,4 @@ class Answer(TimeStampedModel):
     # relationship
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     options = models.ManyToManyField(Option)
+

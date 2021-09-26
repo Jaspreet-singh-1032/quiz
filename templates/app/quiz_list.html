@@ -36,9 +36,9 @@ My Quiz
     </li>    
     {% for quiz in quiz_list %}
 
-    <li class="list-group-item d-flex justify-content-between align-items-center"><a href="{%url 'quiz_page' quiz.id%}">{{quiz.name}}</a>
+    <li class="list-group-item d-flex justify-content-between align-items-center"><a href="{%url 'quiz_page' quiz.uuid%}">{{quiz.name}}</a>
         <span>
-            <a class="btn btn-success btn-sm rounded-pill" id='button{{quiz.id}}' onclick="copyQuizLink({{quiz}});">Copy link</a>
+            <a class="btn btn-success btn-sm rounded-pill" id='button{{quiz.uuid}}' onclick=copyQuizLink("{{quiz.uuid}}");>Copy link</a>
             <a class="btn btn-primary btn-sm rounded-pill" href="{%url 'quiz_results' quiz.id%}">Results</a>
             <a class="btn btn-danger btn-sm " href="{%url 'quiz_delete' quiz.id%}"><i class="fa fa-solid fa-trash"></i></a>
         </span>

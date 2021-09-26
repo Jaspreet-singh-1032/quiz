@@ -90,11 +90,11 @@ document.getElementById("questionForm").addEventListener("submit", (e) => {
   xhr.send(JSON.stringify(body));
 });
 
-function copyQuizLink(id){
-  navigator.clipboard.writeText(window.location.href.replace('#','') + id.id + '/');
-  document.getElementById(`button${id.id}`).innerText = 'Copied !'
+function copyQuizLink(uuid){
+  navigator.clipboard.writeText(window.location.href.replace('#','') + uuid + '/');
+  document.getElementById(`button${uuid}`).innerText = 'Copied !'
   setInterval(()=>{
-    document.getElementById(`button${id.id}`).innerText = 'Copy link'
+    document.getElementById(`button${uuid}`).innerText = 'Copy link'
   },3000);
 }
 
