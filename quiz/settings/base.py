@@ -16,7 +16,7 @@ from django.urls import reverse_lazy
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -182,23 +182,6 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django_redis.cache.RedisCache",
-#         "LOCATION": os.getenv('REDIS_URL'),
-#         "OPTIONS": {
-#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-#         }
-#     }
-# }
-
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-#         'LOCATION': 'cache_quiz_page',
-#     }
-# }
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

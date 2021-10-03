@@ -41,10 +41,6 @@ class QuizPageView(generic.DetailView):
     queryset = Quiz.objects.all()
     slug_field = 'uuid'
 
-    # def get_object(self ):
-    #     quiz = get_object_or_404(Quiz.objects.select_related('user'), uuid=self.kwargs.get('pk'))
-    #     return quiz
-    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['questions'] = context['quiz'].questions.all()

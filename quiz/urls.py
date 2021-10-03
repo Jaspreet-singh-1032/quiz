@@ -68,7 +68,7 @@ urlpatterns = [
 
     # app
     path('app/quiz/' , ListQuizView.as_view() , name='quiz_list'),
-    path('app/quiz/<uuid:slug>/' , QuizPageView.as_view() , name='quiz_page'),
+    path('app/quiz/<uuid:slug>/' , (cache_page_for_guests(86400 * 2))(QuizPageView.as_view()) , name='quiz_page'),
     path('app/quiz/<str:pk>/delete/' , DeleteQuizView.as_view() , name='quiz_delete'),
     path('app/quiz/<str:pk>/results/',ResultView.as_view() , name='quiz_results'), # for authenticated user to view all results
     path('app/quiz/result/<str:pk>/',ResultPageView.as_view() , name='result_page'), # for visitor who is attempting quiz

@@ -16,7 +16,6 @@ document.getElementById("quizForm").addEventListener("submit", (e) => {
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.setRequestHeader("X-CSRFToken", csrf);
   xhr.onload = () => {
-    console.log("in onload");
     if (xhr.status == 201) {
       localStorage.setItem("id", JSON.parse(xhr.responseText).id);
       document.getElementById("questionModal").click();
