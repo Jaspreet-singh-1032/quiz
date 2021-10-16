@@ -7,6 +7,9 @@ https://quizzbuddyy.herokuapp.com/
 * python manage.py migrate
 * python manage.py runserver
 
+## Run tests:-
+* python manage.py  test
+
 ## Environment variables:-
 * Database
   * DATABASE_URL
