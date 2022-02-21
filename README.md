@@ -3,12 +3,15 @@ Live project
 https://quizzbuddyy.herokuapp.com/
 
 ## For local setup run:-
-* pip install -r requirements.txt
-* python manage.py migrate
-* python manage.py runserver
-
+```sh
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
 ## Run tests:-
-* python manage.py  test
+```sh
+python manage.py test
+```
 
 ## Environment variables:-
 * Database
@@ -18,5 +21,12 @@ https://quizzbuddyy.herokuapp.com/
   * GOOGLE_CLIENT_SECRET
 * Caching
   * REDIS_URL
+## Run in Docker
+Follow these instructions to build an image and run a container.
+```sh
+# Build Docker image
+docker-compose build
 
-
+# Run Docker container in port 8000
+docker-compose up
+```
