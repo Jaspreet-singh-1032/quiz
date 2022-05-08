@@ -23,7 +23,7 @@ class ListQuizView(LoginRequiredMixin,generic.ListView ):
     '''
     rerturn list of quiz created by user
     '''
-    template_name = 'app/list_quiz.html'
+    template_name = 'app/quiz_list.html'
     context_object_name = 'quiz_list'
     
     def get_queryset(self):
